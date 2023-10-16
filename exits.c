@@ -8,16 +8,15 @@
  *
  * Return: The concatenated string.
  */
-char *copyStringWithLimit(char *destination, const char *source, int limit) {
-    int i;
-
-    for (i = 0; source[i] != '\0' && i < limit - 1; i++) {
-        destination[i] = source[i];
-    }
-
-    destination[i] = '\0';
-
-    return (destination);
+char *copyStringWithLimit(char *destination, const char *source, int limit)
+{
+int i;
+for (i = 0; source[i] != '\0' && i < limit - 1; i++)
+{
+destination[i] = source[i];
+}
+destination[i] = '\0';
+return (destination);
 }
 
 /**
@@ -28,20 +27,18 @@ char *copyStringWithLimit(char *destination, const char *source, int limit) {
  *
  * Return: The concatenated string.
  */
-char *concatenateStringWithLimit(char *destination, const char *source, int limit) {
-    int i, j;
-
-    for (i = 0; destination[i] != '\0'; i++) {
-        // Find the end of the destination string.
-    }
-
-    for (j = 0; source[j] != '\0' && i < limit - 1; i++, j++) {
-        destination[i] = source[j];
-    }
-
-    destination[i] = '\0';
-
-    return (destination);
+char *concatenateStringWithLimit(char *destination, const char *source, int limit)
+{
+int i, j;
+for (i = 0; destination[i] != '\0'; i++)
+{
+}
+for (j = 0; source[j] != '\0' && i < limit - 1; i++, j++)
+{
+destination[i] = source[j];
+}
+destination[i] = '\0';
+return (destination);
 }
 
 /**
@@ -51,13 +48,15 @@ char *concatenateStringWithLimit(char *destination, const char *source, int limi
  *
  * Return: A pointer to the memory area containing the character.
  */
-char *findCharacterInString(const char *str, char character) {
-    while (*str != '\0') {
-        if (*str == character) {
-            return ((char *)str);
-        }
-        str++;
-    }
-
-    return (NULL);
+char *findCharacterInString(const char *str, char character)
+{
+while (*str != '\0')
+{
+if (*str == character)
+{
+return ((char *)str);
+}
+str++;
+}
+return (NULL);
 }

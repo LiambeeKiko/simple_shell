@@ -12,94 +12,134 @@
  */
 char **split_string(char *str, const char *delimiters)
 {
-	if (str == NULL || delimiters == NULL || str[0] == '\0')
-		return (NULL);
+if (str == NULL || delimiters == NULL || str[0] == '\0')
+return (NULL);
 
-	size_t num_words = 0;
-	char **words = NULL;
-	bool in_word = false;
+size_t num_words = countWords(str, delimiters);
+if (num_words == 0)
+return (NULL);
 
-	for (size_t i = 0; str[i] != '\0'; i++)
-	{
-		if (strchr(delimiters, str[i]) != NULL)
-		{
-			if (in_word)
-			{
-				in_word = false;
-				num_words++;
-			}
-		} else
-		{
-			if (!in_word)
-			{
-				in_word = true;
-			}
-		}
-	}
+char **words = (char **)malloc((num_words + 1) * sizeof(char *));
+if (words == NULL)
+return (NULL);
 
-	if (in_word)
-	{
-		num_words++;
-	}
+extractWords(str, delimiters, words, num_words);
 
-	if (num_words == 0)
-		return (NULL);
+words[num_words] = NULL;
+return (words);
+}
 
-	words = (char **)malloc((num_words + 1) * sizeof(char *));
-	if (words == NULL)
-		return (NULL);
+/**
+* countWords - Counts the number of words in a string based on delimiters.
+* @str: The input string.
+* @delimiters: A string containing the delimiters.
+*
+* Return: The number of words.
+*/
+size_t countWords(char *str, const char *delimiters)
+{
+size_t num_words = 0;
+bool in_word = false;
 
-	size_t word_length = 0;
-	size_t word_count = 0;
+for (size_t i = 0; str[i] != '\0'; i++)
+{
+if (strchr(delimiters, str[i]) != NULL)
+{
+if (in_word)
+{
+in_word = false;
+num_words++;
+}
+}
+else
+{
+if (!in_word)
+in_word = true;
+}
+}
 
-	for (size_t i = 0; str[i] != '\0'; i++)
-	{
-		if (strchr(delimiters, str[i]) != NULL)
-		{
-			if (in_word)
-			{
-				in_word = false;
-				words[word_count] = (char *)malloc((word_length + 1) * sizeof(char));
-				if (words[word_count] == NULL)
-				{
-					for (size_t j = 0; j < word_count; j++)
-					{
-						free(words[j]);
-					}
-					free(words);
-					return (NULL);
-				}
-				strncpy(words[word_count], str + i - word_length, word_length);
-				words[word_count][word_length] = '\0';
-				word_count++;
-				word_length = 0;
-			}
-		} else
-		{
-			if (!in_word)
-			{
-				in_word = true;
-			}
-			word_length++;
-		}
-	}
+if (in_word)
+num_words++;
 
-	if (in_word)
-	{
-		words[word_count] = (char *)malloc((word_length + 1) * sizeof(char));
-		if (words[word_count] == NULL)
-		{
-			for (size_t j = 0; j < word_count; j++)
-			{
-				free(words[j]);
-			}
-			free(words);
-			return (NULL);
-		}
-		strncpy(words[word_count], str + strlen(str) - word_length, word_length);
-		words[word_count][word_length] = '\0';
-	}
+return (num_words);
+}
 
-	words[num_words] = NULL;
-	return (words);
+/**
+ * extractWords - Extracts words from the input string and populates the array.
+ * @str: The input string.
+ * @delimiters: A string containing the delimiters.
+ * @words: An array to store the words.
+ * @num_words: The number of words to extract.
+ */
+void extractWords(char *str, const char *delimiters, char **words, size_t num_words)
+{
+size_t word_length = 0;
+size_t word_count = 0;
+bool in_word = false;
+
+for (size_t i = 0; str[i] != '\0'; i++)
+{
+if (strchr(delimiters, str[i]) != NULL)
+{
+if (in_word)
+{
+in_word = false;
+words[word_count] = extractWord(str, i - word_length, word_length);
+if (words[word_count] == NULL)
+{
+freeWords(words, word_count);
+return;
+}
+word_count++;
+word_length = 0;
+}
+}
+else
+{
+if (!in_word)
+in_word = true;
+word_length++;
+}
+}
+if (in_word)
+{
+words[word_count] = extractWord(str, strlen(str) - word_length, word_length);
+if (words[word_count] == NULL)
+{
+freeWords(words, word_count);
+}
+}
+}
+
+/**
+* extractWord - Extracts a word from the input string.
+* @str: The input string.
+* @start: The starting index of the word.
+* @length: The length of the word.
+*
+* Return: The extracted word or NULL on failure.
+*/
+char *extractWord(char *str, size_t start, size_t length)
+{
+char *word = (char *)malloc((length + 1) * sizeof(char));
+if (word == NULL)
+return (NULL);
+
+strncpy(word, str + start, length);
+word[length] = '\0';
+return (word);
+}
+
+/**
+* freeWords - Frees memory allocated for an array of words.
+* @words: The array of words.
+* @num_words: The number of words in the array.
+*/
+void freeWords(char **words, size_t num_words)
+{
+for (size_t i = 0; i < num_words; i++)
+{
+free(words[i]);
+}
+free(words);
 }

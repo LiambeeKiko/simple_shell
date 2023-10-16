@@ -6,13 +6,12 @@
  *
  * Return: Array of strings representing the environment variables.
  */
-char **copyEnvironToCharArray(info_t *info) {
-    if (!info->environ || info->env_changed) {
-        info->environ = list_to_array(info->env);
-        info->env_changed = 0;
-    }
-
-    return (info->environ);
+char **copyEnvironToCharArray(info_t *info)
+{
+if (!info->environ || info->env_changed)
+info->environ = listToStringArray(info->env);
+info->env_changed = 0;
+return (info->environ);
 }
 
 /**
@@ -22,27 +21,27 @@ char **copyEnvironToCharArray(info_t *info) {
  *
  * Return: 1 on successful removal, 0 otherwise.
  */
-int unsetEnvironmentVariable(info_t *info, const char *variable) {
-    list_t *node = info->env;
-    unsigned int index = 0;
-    const char *p;
-
-    if (!node || !variable)
-        return (0);
-
-    while (node) {
-        p = starts_with(node->str, variable);
-        if (p && *p == '=') {
-            info->env_changed = delete_node_at_index(&(info->env), index);
-            index = 0;
-            node = info->env;
-            continue;
-        }
-        node = node->next;
-        index++;
-    }
-
-    return (info->env_changed);
+int unsetEnvironmentVariable(info_t *info, const char *variable)
+{
+list_t *node = info->env;
+unsigned int index = 0;
+const char *p;
+if (!node || !variable)
+return (0);
+while (node)
+{
+p = startsWith(node->str, variable);
+if (p && *p == '=')
+{
+info->env_changed = deleteNodeAtIndex(&(info->env), index);
+index = 0;
+node = info->env;
+continue;
+}
+node = node->next;
+index++;
+}
+return (info->env_changed);
 }
 
 /**
@@ -53,35 +52,34 @@ int unsetEnvironmentVariable(info_t *info, const char *variable) {
  *
  * Return: 0 on success, 1 on failure.
  */
-int setEnvironmentVariable(info_t *info, char *variable, char *value) {
-    char *buffer = NULL;
-    list_t *node;
-    char *p;
-
-    if (!variable || !value)
-        return (1);
-
-    buffer = malloc(_strlen(variable) + _strlen(value) + 2);
-    if (!buffer)
-        return (1);
-
-    _strcpy(buffer, variable);
-    _strcat(buffer, "=");
-    _strcat(buffer, value);
-
-    node = info->env;
-    while (node) {
-        p = starts_with(node->str, variable);
-        if (p && *p == '=') {
-            free(node->str);
-            node->str = buffer;
-            info->env_changed = 1;
-            return (0);
-        }
-        node = node->next;
-    }
-
-    add_nodeint_end(&(info->env), 0);
-    info->env_changed = 1;
-    return (0);
+int setEnvironmentVariable(info_t *info, char *variable, char *value)
+{
+char *buffer = NULL;
+list_t *node;
+char *p;
+if (!variable || !value)
+return (1);
+buffer = malloc(_strlen(variable) + _strlen(value) + 2);
+if (!buffer)
+return (1);
+_strcpy(buffer, variable);
+_strcat(buffer, "=");
+_strcat(buffer, value);
+node = info->env;
+while (node)
+{
+p = startsWith(node->str, variable);
+if (p && *p == '=')
+{
+free(node->str);
+node->str = buffer;
+info->env_changed = 1;
+return (0);
+}
+node = node->next;
+}
+addNodeEnd(&(info->env), buffer, 0);
+free(buffer);
+info->env_changed = 1;
+return (0);
 }

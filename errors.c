@@ -6,13 +6,14 @@
  *
  * Return: Nothing.
  */
-void printToStderr(const char *str) {
-    if (!str)
-        return;
-
-    while (*str != '\0') {
-        writeCharToStderr(*str++);
-    }
+void printToStderr(const char *str)
+{
+if (!str)
+return;
+while (*str != '\0')
+{
+writeCharToStderr(*str++);
+}
 }
 
 /**
@@ -21,19 +22,18 @@ void printToStderr(const char *str) {
  *
  * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
  */
-int writeCharToStderr(char c) {
-    static int i;
-    static char buf[WRITE_BUF_SIZE];
-
-    if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE) {
-        write(2, buf, i);
-        i = 0;
-    }
-
-    if (c != BUF_FLUSH)
-        buf[i++] = c;
-
-    return (1);
+int writeCharToStderr(char c)
+{
+static int i;
+static char buf[WRITE_BUF_SIZE];
+if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+{
+write(2, buf, i);
+i = 0;
+}
+if (c != BUF_FLUSH)
+buf[i++] = c;
+return (1);
 }
 
 /**
@@ -43,19 +43,18 @@ int writeCharToStderr(char c) {
  *
  * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
  */
-int writeCharToFileDescriptor(char c, int fd) {
-    static int i;
-    static char buf[WRITE_BUF_SIZE];
-
-    if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE) {
-        write(fd, buf, i);
-        i = 0;
-    }
-
-    if (c != BUF_FLUSH)
-        buf[i++] = c;
-
-    return (1);
+int writeCharToFileDescriptor(char c, int fd)
+{
+static int i;
+static char buf[WRITE_BUF_SIZE];
+if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+{
+write(fd, buf, i);
+i = 0;
+}
+if (c != BUF_FLUSH)
+buf[i++] = c;
+return (1);
 }
 
 /**
@@ -65,15 +64,14 @@ int writeCharToFileDescriptor(char c, int fd) {
  *
  * Return: The number of characters written.
  */
-int printStringToFileDescriptor(const char *str, int fd) {
-    int i = 0;
-
-    if (!str)
-        return (0);
-
-    while (*str) {
-        i += writeCharToFileDescriptor(*str++, fd);
-    }
-
-    return (i);
+int printStringToFileDescriptor(const char *str, int fd)
+{
+int i = 0;
+if (!str)
+return (0);
+while (*str)
+{
+i += writeCharToFileDescriptor(*str++, fd);
+}
+return (i);
 }
