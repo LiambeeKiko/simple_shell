@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * displayHistory - Display the history list with line numbers.
  * @info: Pointer to the info_t struct containing the history list.
@@ -27,8 +28,7 @@ if (!p)
 return (1);
 c = *p;
 *p = 0;
-ret = delete_node_at_index(&(info->alias),
-find_node_with_str(info->alias, str));
+ret = delete_node_at_index(&(info->alias), find_node_with_str(info->alias, str));
 *p = c;
 return (ret);
 }

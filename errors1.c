@@ -66,11 +66,9 @@ _eputs(errorType);
  */
 int printDecimal(int input, int fd)
 {
-int (*printChar)(char) = _putchar;
+int (*printChar)(char) = (fd == STDERR_FILENO) ? _eputchar : _putchar;
 int i, count = 0;
 unsigned int absoluteValue, current;
-if (fd == STDERR_FILENO)
-printChar = _eputchar;
 if (input < 0)
 {
 absoluteValue = -input;

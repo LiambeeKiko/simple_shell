@@ -15,12 +15,12 @@ return (info->environ);
 }
 
 /**
- * unsetEnvironmentVariable - Remove an environment variable.
- * @info: Parameter struct.
- * @variable: The environment variable to remove.
- *
- * Return: 1 on successful removal, 0 otherwise.
- */
+* unsetEnvironmentVariable - Remove an environment variable.
+* @info: Parameter struct.
+* @variable: The environment variable to remove.
+*
+* Return: 1 on successful removal, 0 otherwise.
+*/
 int unsetEnvironmentVariable(info_t *info, const char *variable)
 {
 list_t *node = info->env;
@@ -45,13 +45,13 @@ return (info->env_changed);
 }
 
 /**
- * setEnvironmentVariable - Initialize a new environment variable or modify an existing one.
- * @info: Parameter struct.
- * @variable: The environment variable property.
- * @value: The environment variable value.
- *
- * Return: 0 on success, 1 on failure.
- */
+* setEnvironmentVariable - Initialize a new environment variable or modify an existing one.
+* @info: Parameter struct.
+* @variable: The environment variable property.
+* @value: The environment variable value.
+*
+* Return: 0 on success, 1 on failure.
+*/
 int setEnvironmentVariable(info_t *info, char *variable, char *value)
 {
 char *buffer = NULL;

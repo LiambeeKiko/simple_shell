@@ -104,13 +104,13 @@ return (info->histCount);
 }
 
 /**
- * buildHistoryList - Adds an entry to the history linked list.
- * @info: Parameter struct.
- * @buf: Buffer.
- * @lineCount: The history line count.
- *
- * Return: Always 0.
- */
+* buildHistoryList - Adds an entry to the history linked list.
+* @info: Parameter struct.
+* @buf: Buffer.
+* @lineCount: The history line count.
+*
+* Return: Always 0.
+*/
 int buildHistoryList(info_t *info, char *buf, int lineCount)
 {
 list_t *node = NULL;
@@ -123,11 +123,11 @@ return (0);
 }
 
 /**
- * renumberHistory - Renumbers the history linked list after changes.
- * @info: Parameter struct.
- *
- * Return: The new histCount.
- */
+* renumberHistory - Renumbers the history linked list after changes.
+* @info: Parameter struct.
+*
+* Return: The new histCount.
+*/
 int renumberHistory(info_t *info)
 {
 list_t *node = info->history;

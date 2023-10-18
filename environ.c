@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * displayEnvironment - Display the current environment variables.
  * @info: Pointer to the info_t struct containing the environment list.

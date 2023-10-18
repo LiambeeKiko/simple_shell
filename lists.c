@@ -53,11 +53,11 @@ return (strArray);
 }
 
 /**
- * printListWithNumbers - Prints all elements of a list_t linked list with numbers.
- * @head: Pointer to the first node.
- *
- * Return: Size of the list.
- */
+* printListWithNumbers .
+* @head: Pointer to the first node.
+*
+* Return: Size of the list.
+*/
 size_t printListWithNumbers(const list_t *head)
 {
 size_t size = 0;
@@ -75,13 +75,13 @@ return (size);
 }
 
 /**
- * findNodeWithPrefix - Returns the node whose string starts with a prefix.
- * @head: Pointer to list head.
- * @prefix: String to match.
- * @nextChar: The next character after the prefix to match.
- *
- * Return: Matching node or NULL.
- */
+* findNodeWithPrefix - Returns the node whose string starts with a prefix.
+* @head: Pointer to list head.
+* @prefix: String to match.
+* @nextChar: The next character after the prefix to match.
+*
+* Return: Matching node or NULL.
+*/
 list_t *findNodeWithPrefix(list_t *head, char *prefix, char nextChar)
 {
 char *p = NULL;
@@ -96,12 +96,12 @@ return (NULL);
 }
 
 /**
- * getNodeIndex - Gets the index of a node.
- * @head: Pointer to list head.
- * @node: Pointer to the node.
- *
- * Return: Index of the node or -1.
- */
+* getNodeIndex - Gets the index of a node.
+* @head: Pointer to list head.
+* @node: Pointer to the node.
+*
+* Return: Index of the node or -1.
+*/
 ssize_t getNodeIndex(list_t *head, list_t *node)
 {
 size_t index = 0;

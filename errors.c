@@ -9,7 +9,7 @@
 void printToStderr(const char *str)
 {
 if (!str)
-return;
+return ();
 while (*str != '\0')
 {
 writeCharToStderr(*str++);
@@ -17,11 +17,11 @@ writeCharToStderr(*str++);
 }
 
 /**
- * writeCharToStderr - Writes a character to the standard error stream.
- * @c: The character to print.
- *
- * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
- */
+* writeCharToStderr - Writes a character to the standard error stream.
+* @c: The character to print.
+*
+* Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
+*/
 int writeCharToStderr(char c)
 {
 static int i;
@@ -37,12 +37,12 @@ return (1);
 }
 
 /**
- * writeCharToFileDescriptor - Writes a character to a given file descriptor.
- * @c: The character to print.
- * @fd: The file descriptor to write to.
- *
- * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
- */
+* writeCharToFileDescriptor - Writes a character to a given file descriptor.
+* @c: The character to print.
+* @fd: The file descriptor to write to.
+*
+* Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
+*/
 int writeCharToFileDescriptor(char c, int fd)
 {
 static int i;
@@ -58,12 +58,12 @@ return (1);
 }
 
 /**
- * printStringToFileDescriptor - Prints a string to a given file descriptor.
- * @str: The string to be printed.
- * @fd: The file descriptor to write to.
- *
- * Return: The number of characters written.
- */
+* printStringToFileDescriptor - Prints a string to a given file descriptor.
+* @str: The string to be printed.
+* @fd: The file descriptor to write to.
+*
+* Return: The number of characters written.
+*/
 int printStringToFileDescriptor(const char *str, int fd)
 {
 int i = 0;

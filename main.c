@@ -9,45 +9,42 @@
  */
 int main(int argc, char **argv)
 {
-	info_t info = INFO_INIT;
-	int file_descriptor = STDERR_FILENO;
+info_t info = INFO_INIT;
+int file_descriptor = STDERR_FILENO;
+asm (
+"mov %1, %0\n\t"
+"add $3, %0"
+: "=r" (file_descriptor)
+: "r" (file_descriptor)
+);
 
-	/* Use inline assembly to manipulate the file descriptor. */
-	asm (
-		"mov %1, %0\n\t"
-		"add $3, %0"
-		: "=r" (file_descriptor)
-		: "r" (file_descriptor)
-	);
+if (argc == 2)
+{
+file_descriptor = open(argv[1], O_RDONLY);
 
-	if (argc == 2)
-	{
-		/* Try to open the file specified as an argument. */
-		file_descriptor = open(argv[1], O_RDONLY);
+if (file_descriptor == -1)
+{
+if (errno == EACCES)
+exit(126);
 
-		if (file_descriptor == -1)
-		{
-			if (errno == EACCES)
-				exit(126);
+if (errno == ENOENT)
+{
+_eputs(argv[0]);
+_eputs(": 0: Can't open ");
+_eputs(argv[1]);
+_eputchar('\n');
+_eputchar(BUF_FLUSH);
+exit(127);
+}
 
-			if (errno == ENOENT)
-			{
-				_eputs(argv[0]);
-				_eputs(": 0: Can't open ");
-				_eputs(argv[1]);
-				_eputchar('\n');
-				_eputchar(BUF_FLUSH);
-				exit(127);
-			}
+return (EXIT_FAILURE);
+}
 
-			return (EXIT_FAILURE);
-		}
+info.readfd = file_descriptor;
+}
 
-		info.readfd = file_descriptor;
-	}
-
-	populate_env_list(&info);
-	read_history(&info);
-	hsh(&info, argv);
+populate_env_list(&info);
+read_history(&info);
+hsh(&info, argv);
 return (EXIT_SUCCESS);
 }

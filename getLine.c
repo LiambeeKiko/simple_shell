@@ -141,9 +141,9 @@ return (totalBytesRead);
 }
 
 /**
- * sigintHandler - Blocks Ctrl-C.
- * @sig_num: The signal number.
- */
+* sigintHandler - Blocks Ctrl-C.
+* @sig_num: The signal number.
+*/
 void sigintHandler(__attribute__((unused)) int sig_num)
 {
 _puts("\n");

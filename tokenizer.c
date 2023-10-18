@@ -21,13 +21,32 @@ return (NULL);
 
 char **words = (char **)malloc((num_words + 1) * sizeof(char *));
 if (words == NULL)
+{
 return (NULL);
-
+}
 extractWords(str, delimiters, words, num_words);
+if (words[num_words] == NULL)
+{
+freeWords(words, num_words);
+return (NULL);
+}
 
 words[num_words] = NULL;
 return (words);
 }
+
+void freeWords(char **words, size_t num_words)
+{
+if (words == NULL)
+return ();
+
+for (size_t i = 0; i < num_words; i++)
+{
+free(words[i]);
+}
+free(words);
+}
+
 
 /**
 * countWords - Counts the number of words in a string based on delimiters.
@@ -128,18 +147,4 @@ return (NULL);
 strncpy(word, str + start, length);
 word[length] = '\0';
 return (word);
-}
-
-/**
-* freeWords - Frees memory allocated for an array of words.
-* @words: The array of words.
-* @num_words: The number of words in the array.
-*/
-void freeWords(char **words, size_t num_words)
-{
-for (size_t i = 0; i < num_words; i++)
-{
-free(words[i]);
-}
-free(words);
 }

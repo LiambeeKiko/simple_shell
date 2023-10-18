@@ -27,17 +27,31 @@ int _strlen(const char *s)
  */
 int _strcmp(const char *s1, const char *s2)
 {
-	while (*s1 && *s2)
-	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
-	}
-	if (*s1 == *s2)
-		return (0);
-	else
-		return (*s1 < *s2 ? -1 : 1);
+if (s1 == NULL && s2 == NULL)
+{
+return (0);
+}
+else if (s1 == NULL)
+{
+return (-1);
+}
+else if (s2 == NULL)
+{
+return (1);
+}
+
+while (*s1 && *s2)
+{
+if (*s1 != *s2)
+return (*s1 - *s2);
+s1++;
+s2++;
+}
+
+if (*s1 == *s2)
+return (0);
+else
+return (*s1 < *s2 ? -1 : 1);
 }
 
 /**
@@ -73,3 +87,4 @@ char *_strcat(char *dest, const char *src)
 	*dest = *src;
 	return (ret);
 }
+
